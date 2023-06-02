@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('./connection');
+const { salesModel } = require('./models');
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.get('/', async (_request, response) => {
 });
 
 app.get('/test', async (_request, response) => {
- const [result] = await connection.execute('SELECT * FROM StoreManager.products');
+ const result = await salesModel.getSaleById(2);
 
   return response.status(200).json({ result });
 });
