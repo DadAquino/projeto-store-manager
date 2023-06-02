@@ -13,7 +13,21 @@ const getProductsById = async (id) => {
     return result;
 };
 
+const insertNewProduct = async (body) => {
+    const columns = Object.keys(body).join(', ');
+
+    const placeholders = Object.keys(body).map((_key) => '?').join(', ');
+
+    const [{ insertId }] = await connection.execute(
+`INSERT INTO products (${columns}) VALUE (${placeholders})`,
+    [...Object.values(body)],
+  );
+
+  return insertId;
+};
+
 module.exports = { 
     getAllProducts,
     getProductsById,
+    insertNewProduct,
 };

@@ -1,3 +1,5 @@
+// products
+
 const productsMock = [
     {
       id: 1,
@@ -13,17 +15,61 @@ const productsMock = [
     },
   ];
 
-  const salesMock = [
+  const newProductMock = {
+    name: 'ProdutoX',
+  };
+
+  const newProductResponse = [
     {
-      id: 1,
-      date: '2023-06-01T20:35:33.000Z',
+      fieldCount: 0,
+      affectedRows: 1,
+      insertId: 4,
+      info: '',
+      serverStatus: 2,
+      warningStatus: 0,
+    },
+    null,
+  ];
+
+// sales
+
+const salesMock = [
+  {
+    id: 1,
+    date: '2023-06-01T20:35:33.000Z',
+  },
+  {
+    id: 2,
+    date: '2023-06-01T20:35:33.000Z',
+  },
+  ];
+
+const newSaleMock = [
+    {
+      productId: 1,
+      quantity: 1,
     },
     {
-      id: 2,
-      date: '2023-06-01T20:35:33.000Z',
+      productId: 2,
+      quantity: 5,
     },
   ];
 
+  const newSaleResponse = {
+    id: 3,
+    itemsSold: [
+      {
+        productId: 1,
+        quantity: 1,
+      },
+      {
+        productId: 2,
+        quantity: 5,
+      },
+    ],
+  };
+
+  // sales_Products
   const salesProductsMock = [
     {
       saleId: 1,
@@ -42,4 +88,13 @@ const productsMock = [
     },
   ];
 
-  module.exports = { productsMock, salesMock, salesProductsMock };
+  // export
+  module.exports = { 
+    productsMock,
+    salesMock,
+    salesProductsMock,
+    newProductMock,
+    newProductResponse,
+    newSaleMock,
+    newSaleResponse, 
+  };
