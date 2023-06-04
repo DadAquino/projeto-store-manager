@@ -16,7 +16,7 @@ describe('Testes da camada model de Sales', function () {
     });
 
     it('Listando listando sale por id', async function () {
-        sinon.stub(connection, 'execute').resolves([salesMock[0]]);
+        sinon.stub(connection, 'execute').resolves([[salesMock[0]]]);
 
         const id = 1;
 

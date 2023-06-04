@@ -16,7 +16,7 @@ describe('Testes da camada model de Products', function () {
     });
 
     it('Listando listando products por id', async function () {
-        sinon.stub(connection, 'execute').resolves([productsMock[0]]);
+        sinon.stub(connection, 'execute').resolves([[productsMock[0]]]);
 
         const id = 1;
 
