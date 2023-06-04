@@ -32,4 +32,12 @@ describe('Testes da camada model de Products', function () {
 
         expect(result).to.be.deep.equal(2);
     });
+
+    it('Realizando uma atualização de produto', async function () {
+        sinon.stub(connection, 'execute').resolves([{ affectedRows: 1, changedRows: 1 }]);
+
+        const result = await productsModel.updateProduct(newProductMock);
+
+        expect(result).to.be.deep.equal(1);
+    });
 });

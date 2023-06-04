@@ -1,5 +1,5 @@
 const express = require('express');
-const { newProductMock, newSaleMock } = require('../tests/unit/models/mocks/model.mocks');
+const { newSaleMock } = require('../tests/unit/models/mocks/model.mocks');
 const { insertNewSale } = require('./models/sales.model');
 
 const app = express();

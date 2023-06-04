@@ -26,8 +26,12 @@ const insertNewSale = async (body) => {
   return insertId;
 };
 
+const updateSale = async () => {
+};
+
 module.exports = { 
     getAllSales,
     getSaleById,
     insertNewSale,
+    updateSale,
  };
