@@ -1,6 +1,6 @@
 const express = require('express');
-const { newProduct } = require('./models/product.model');
-const { newProductMock } = require('../tests/unit/models/mocks/model.mocks');
+const { newProductMock, newSaleMock } = require('../tests/unit/models/mocks/model.mocks');
+const { insertNewSale } = require('./models/sales.model');
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.get('/', async (_request, response) => {
 });
 
 app.get('/test', async (_request, response) => {
- const result = await newProduct(newProductMock);
+ const result = await insertNewSale(newSaleMock);
 
   return response.status(200).json(result);
 });

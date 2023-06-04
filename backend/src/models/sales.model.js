@@ -13,7 +13,21 @@ const getSaleById = async (id) => {
     return result;
 };
 
+const insertNewSale = async (body) => {
+    const columns = Object.keys(body).join(', ');
+
+    const placeholders = Object.keys(body).map((_key) => '?').join(', ');
+
+    const [{ insertId }] = await connection.execute(
+`INSERT INTO sales (${columns}) VALUE (${placeholders})`,
+    [...Object.values(body)],
+  );
+
+  return insertId;
+};
+
 module.exports = { 
     getAllSales,
     getSaleById,
+    insertNewSale,
  };

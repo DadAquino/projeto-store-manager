@@ -26,10 +26,10 @@ describe('Testes da camada model de Products', function () {
     });
 
     it('Realizando um cadastro de produto', async function () {
-        sinon.stub(connection, 'execute').resolves(newProductResponse);
+        sinon.stub(connection, 'execute').resolves([{ insertId: 2 }]);
 
         const result = await productsModel.insertNewProduct(newProductMock);
 
-        expect(result).to.be.deep.equal(4);
+        expect(result).to.be.deep.equal(2);
     });
 });
