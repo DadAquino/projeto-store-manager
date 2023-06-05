@@ -2,10 +2,14 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const { productsServices } = require('../../../src/services/index');
-const { productsModel } = require('../../../src/models/index');
+const { productsModel } = require('../../../src/models');
 const { productsMock } = require('../models/mocks/model.mocks');
 
 describe('Testes das regras de negócio de produtos da camada services', function () {
+    afterEach(async function () {
+        sinon.restore();
+      });
+
     it('Testa se todos os produtos são listados caso esteja tudo ok', async function () {
         sinon.stub(productsModel, 'getAllProducts').resolves(productsMock);
 
