@@ -22,7 +22,7 @@ const insertNewProduct = async (body) => {
     const [{ insertId }] = await connection.execute(
 `INSERT INTO products (${columns}) VALUE (${placeholders})`,
     [...Object.values(body)],
-  );
+    );
 
   return insertId;
 };

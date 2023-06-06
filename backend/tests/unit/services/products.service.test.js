@@ -1,4 +1,3 @@
-/*
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { productsMock } = require('../models/mocks/model.mocks');
@@ -28,5 +27,3 @@ describe('Testes das regras de negócio de produtos da camada services', functio
         expect(result).to.be.deep.equal(productsMock[0]);
     });
 });
-
-*/
