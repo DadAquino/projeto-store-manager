@@ -19,4 +19,12 @@ const getProductsByid = async (request, response) => {
    return response.status(200).json(result);
  };
 
-module.exports = { getProducts, getProductsByid };
+ const addNewProduct = async (request, response) => {
+  const { body } = request;
+
+  const result = await productsServices.addProduct(body);
+ 
+   response.status(201).json(result);
+ };
+
+module.exports = { getProducts, getProductsByid, addNewProduct };

@@ -1,9 +1,9 @@
 const express = require('express');
 // const { getAllProducts, deleteProducts, updateProduct } = require('./models/product.model');
 const { salesController, productsController } = require('./controllers');
-const { updateProduct } = require('./models/product.model');
 
 const app = express();
+app.use(express.json());
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', async (_request, response) => {
@@ -16,10 +16,6 @@ app.get('/products/:id', productsController.getProductsByid);
  app.get('/sales', salesController.getSales);
  app.get('/sales/:id', salesController.getSalesById);
 
- app.get('/test', async (_request, response) => {
-  const result = await updateProduct({ id: 2, name: 'au' });
-
-  response.status(200).json(result);
-});
+ app.post('/products', productsController.addNewProduct);
 
 module.exports = app;

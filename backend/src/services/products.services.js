@@ -16,4 +16,10 @@ const listProducts = async (id) => {
      return result;
 };
 
-module.exports = { listProducts };
+const addProduct = async (body) => {
+    const result = await productsModel.insertNewProduct(body);
+
+    return { id: result, name: body.name };
+};
+
+module.exports = { listProducts, addProduct };
