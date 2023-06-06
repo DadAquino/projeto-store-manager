@@ -21,7 +21,7 @@ describe('Testes da camada model de Sales', function () {
 
         const id = 2;
 
-        const result = await salesModel.getSaleById(2);
+        const result = await salesModel.getSaleById(id);
 
         expect(result).to.be.deep.equal([salesProductsMock[2]]);
     });
