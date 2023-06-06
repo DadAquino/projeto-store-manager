@@ -1,6 +1,6 @@
 const express = require('express');
 // const { getAllProducts, deleteProducts, updateProduct } = require('./models/product.model');
-const { productsServices } = require('./services');
+const { productsServices, salesServices } = require('./services');
 
 const app = express();
 
@@ -20,5 +20,17 @@ app.get('/products/:id', async (request, response) => {
  
    return response.status(200).json(result);
  });
+
+ app.get('/sales', async (_request, response) => {
+  const result = await salesServices.listSales();
+ 
+   return response.status(200).json(result);
+ });
+ app.get('/sales/:id', async (request, response) => {
+   const { id } = request.params;
+   const result = await salesServices.listSales(id);
+  
+    return response.status(200).json(result);
+  });
 
 module.exports = app;

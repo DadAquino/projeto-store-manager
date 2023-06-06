@@ -1,8 +1,8 @@
-const { getProductsById, getAllProducts } = require('../models/product.model');
+const { productsModel } = require('../models');
 
 const listProducts = async (id) => {
     if (id) { 
-        const result = await getProductsById(id);
+        const result = await productsModel.getProductsById(id);
         
         if (!result) {
             return { message: 'Product not found' };
@@ -11,7 +11,7 @@ const listProducts = async (id) => {
         return result;
      }
 
-     const result = await getAllProducts();
+     const result = await productsModel.getAllProducts();
 
      return result;
 };

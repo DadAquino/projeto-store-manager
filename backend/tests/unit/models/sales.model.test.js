@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
 const { salesMock, newSaleMock } = require('./mocks/model.mocks');
+const { salesProductsMock } = require('./mocks/model.mocks');
 
 describe('Testes da camada model de Sales', function () {
     afterEach(sinon.restore);
@@ -16,13 +17,13 @@ describe('Testes da camada model de Sales', function () {
     });
 
     it('Listando listando sale por id', async function () {
-        sinon.stub(connection, 'execute').resolves([[salesMock[0]]]);
+        sinon.stub(connection, 'execute').resolves([[salesProductsMock[2]]]);
 
-        const id = 1;
+        const id = 2;
 
-        const result = await salesModel.getSaleById(id);
+        const result = await salesModel.getSaleById(2);
 
-        expect(result).to.be.deep.equal(salesMock[0]);
+        expect(result).to.be.deep.equal([salesProductsMock[2]]);
     });
 
     it('Realizando um cadastro de venda', async function () {

@@ -14,7 +14,7 @@ const getAllSales = async () => {
     return result;
 };
 
-const getSaleById = async (id) => {
+const getSaleProductById = async (id) => {
     const [[result]] = await 
     connection.execute(
 `SELECT 
@@ -55,9 +55,20 @@ const deleteSale = async (id) => {
     await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
   };
 
+  const getSaleById = async (id) => {
+    const comando = `SELECT a.date, b.product_id AS productId, 
+    b.quantity FROM StoreManager.sales AS a 
+    INNER JOIN StoreManager.sales_products AS b ON a.id = b.sale_id WHERE a.id = ?`;
+    
+    const [result] = await connection.execute(comando, [id]);
+
+    return result;
+  };
+
 module.exports = { 
     getAllSales,
     getSaleById,
+    getSaleProductById,
     insertNewSale,
     updateSale,
     deleteSale,
