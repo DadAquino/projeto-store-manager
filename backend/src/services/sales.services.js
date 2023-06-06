@@ -5,7 +5,7 @@ const listSales = async (id) => {
             const result = await salesModel.getSaleById(id);
             
             if (result.length === 0) {
-                return { message: 'Sale not found' };
+                return { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
              }
              
             return result;
