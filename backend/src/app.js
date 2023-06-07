@@ -19,6 +19,7 @@ app.get('/products/:id', productsController.getProductsById);
  app.get('/sales/:id', salesController.getSalesById);
 
  app.post('/products', nameValidation, productsController.addNewProduct);
+app.post('/sales', salesController.insertNewSale);
 
  app.get('/test', async (_request, response) => {
 const result = await salesModel.getSaleProductById(77);

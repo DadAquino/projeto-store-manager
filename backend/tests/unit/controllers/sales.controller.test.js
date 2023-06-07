@@ -7,7 +7,7 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 const { salesController } = require('../../../src/controllers');
-const { salesProductsMock } = require('../models/mocks/model.mocks');
+const { salesProductsMock, newSaleResponse } = require('../models/mocks/model.mocks');
 const { salesServices } = require('../../../src/services');
 
 describe('Testes da camada Controller de Sales', function () {
@@ -55,5 +55,18 @@ describe('Testes da camada Controller de Sales', function () {
 
         expect(res.status).to.have.been.calledWith(404);
         expect(res.json).to.have.been.calledWith({ message: error.message });
+    });
+    it('Cadastro de um novo produto', async function () {
+        sinon.stub(salesServices, 'newSale').resolves(newSaleResponse);
+        const req = { body: newSaleResponse.itemsSold };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await salesController.insertNewSale(req, res);
+
+        expect(res.status).to.have.been.calledWith(201);
+        expect(res.json).to.have.been.calledWith(newSaleResponse);
     });
 });

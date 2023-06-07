@@ -32,20 +32,36 @@ const getSaleProductById = async (id) => {
     return result;
 };
 
-const insertNewSale = async (body) => {
-        const [{ insertId }] = await connection
-        .execute('INSERT INTO sales () VALUES ()');
-      
-        const saleProducts = body.map((product) =>
-          connection.execute(
-            `INSERT INTO sales_products 
-            (product_id, quantity, sale_id) VALUES (?, ?, ?)`,
-            [product.productId, product.quantity, insertId],
-          ));
-      
-        await Promise.all(saleProducts);
-      
-        return insertId;
+const newSaleId = async () => {
+  const [[result]] = await connection.execute(
+    'SELECT MAX(id) AS id FROM sales',
+  );
+
+  const lastId = Object.values(result);
+
+  const newId = lastId[0] + 1;
+
+  await connection.execute(
+    'INSERT INTO sales (id) VALUE (?)',
+    [newId],
+    );
+
+  return newId;
+};
+
+const newSale = async (newId, sale) => {
+  await connection.execute(
+    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?);',
+    [newId, sale.productId, sale.quantity],
+  );
+
+  const [result] = await connection.execute(
+    `SELECT product_id AS productId, quantity
+    FROM sales_products WHERE sale_id = ?`,
+    [newId],
+  );
+
+  return result;
 };
 
 /*
@@ -95,7 +111,8 @@ module.exports = {
     getAllSales,
    // getSaleById,
     getSaleProductById,
-    insertNewSale,
+    newSale,
+    newSaleId,
     // updateSale,
     deleteSale,
  };

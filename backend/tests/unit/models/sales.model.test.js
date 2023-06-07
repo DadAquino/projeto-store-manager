@@ -29,9 +29,11 @@ describe('Testes da camada model de Sales', function () {
     it('Realizando um cadastro de venda', async function () {
         sinon.stub(connection, 'execute').resolves([{ insertId: 2 }]);
 
-        const result = await salesModel.insertNewSale(newSaleMock);
+        const newId = 2;
 
-        expect(result).to.be.deep.equal(2);
+        const result = await salesModel.newSale(newId, newSaleMock);
+
+        expect(result).to.be.deep.equal({ insertId: 2 });
     });
 
     it('Deletando uma venda', async function () {
