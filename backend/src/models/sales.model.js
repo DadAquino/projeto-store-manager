@@ -48,6 +48,7 @@ const insertNewSale = async (body) => {
         return insertId;
 };
 
+/*
 const updateSale = async (saleId, productId, quantity) => {
   console.log(saleId, productId, quantity, 'model');
   await connection.execute(
@@ -68,6 +69,8 @@ const updateSale = async (saleId, productId, quantity) => {
 
   return result;
 };
+
+*/
 
 const deleteSale = async (id) => {
    const [{ affectedRows }] = await 
@@ -93,6 +96,6 @@ module.exports = {
    // getSaleById,
     getSaleProductById,
     insertNewSale,
-    updateSale,
+    // updateSale,
     deleteSale,
  };
