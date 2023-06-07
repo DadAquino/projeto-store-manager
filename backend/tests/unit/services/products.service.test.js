@@ -38,7 +38,7 @@ describe('Testes das regras de negócio de produtos da camada services', functio
         expect(result).to.be.deep.equal(errorResult);
     });
 
-    it('Testa se o produto se a venda é adicionada corretamente', async function () {
+    it('Testa se o produto é adicionado corretamente', async function () {
         const resolvesId = 5;
         const req = { name: 'produtoB' };
         const res = { id: resolvesId, name: req.name };

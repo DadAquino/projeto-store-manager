@@ -6,7 +6,7 @@ const getProducts = async (_request, response) => {
      return response.status(200).json(result);
    };
 
-const getProductsByid = async (request, response) => {
+const getProductsById = async (request, response) => {
   const { id } = request.params;
   const result = await productsServices.listProducts(id);
 
@@ -27,4 +27,4 @@ const getProductsByid = async (request, response) => {
    response.status(201).json(result);
  };
 
-module.exports = { getProducts, getProductsByid, addNewProduct };
+module.exports = { getProducts, getProductsById, addNewProduct };

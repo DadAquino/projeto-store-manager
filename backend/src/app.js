@@ -2,6 +2,7 @@ const express = require('express');
 // const { getAllProducts, deleteProducts, updateProduct } = require('./models/product.model');
 const { salesController, productsController } = require('./controllers');
 const { salesModel } = require('./models');
+const { nameValidation } = require('./middlewares/validations');
 
 const app = express();
 app.use(express.json());
@@ -12,12 +13,12 @@ app.get('/', async (_request, response) => {
 });
 
 app.get('/products', productsController.getProducts);
-app.get('/products/:id', productsController.getProductsByid);
+app.get('/products/:id', productsController.getProductsById);
 
  app.get('/sales', salesController.getSales);
  app.get('/sales/:id', salesController.getSalesById);
 
- app.post('/products', productsController.addNewProduct);
+ app.post('/products', nameValidation, productsController.addNewProduct);
 
  app.get('/test', async (_request, response) => {
 const result = await salesModel.getSaleProductById(77);
