@@ -22,4 +22,15 @@ const addProduct = async (body) => {
     return { id: result, name: body.name };
 };
 
-module.exports = { listProducts, addProduct };
+const update = async (id, name) => {
+    const product = await productsModel.getProductsById(id);
+
+    if (product.lenght === 0) {
+        return { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+     }
+
+    const result = await productsModel.updateProduct(id, name);
+
+    return result;
+};
+module.exports = { listProducts, addProduct, update };
