@@ -26,4 +26,27 @@ describe('Testes das regras de negócio de produtos da camada services', functio
 
         expect(result).to.be.deep.equal(productsMock[0]);
     });
+
+    it('Testa se o produto se é retornado um erro caso o produto não exista', async function () {
+        const errorResult = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+        const id = 1;
+
+        sinon.stub(productsModel, 'getProductsById').resolves(undefined);
+
+        const result = await productsServices.listProducts(id);
+
+        expect(result).to.be.deep.equal(errorResult);
+    });
+
+    it('Testa se o produto se a venda é adicionada corretamente', async function () {
+        const resolvesId = 5;
+        const req = { name: 'produtoB' };
+        const res = { id: resolvesId, name: req.name };
+
+        sinon.stub(productsModel, 'insertNewProduct').resolves(resolvesId);
+
+        const result = await productsServices.addProduct(req);
+
+        expect(result).to.be.deep.equal(res);
+    });
 });

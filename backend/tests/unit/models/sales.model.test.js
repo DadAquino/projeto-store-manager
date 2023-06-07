@@ -23,7 +23,7 @@ describe('Testes da camada model de Sales', function () {
 
         const result = await salesModel.getSaleProductById(id);
 
-        expect(result).to.be.deep.equal(salesProductsMock[2]);
+        expect(result).to.be.deep.equal([salesProductsMock[2]]);
     });
 
     it('Realizando um cadastro de venda', async function () {

@@ -20,9 +20,9 @@ app.get('/products/:id', productsController.getProductsByid);
  app.post('/products', productsController.addNewProduct);
 
  app.get('/test', async (_request, response) => {
-const result = await salesModel.updateSale(1, 2, 50);
+const result = await salesModel.getSaleProductById(1);
 
-  console.log(result);
+  console.log(result.length);
 
   response.status(200).json(result);
 });

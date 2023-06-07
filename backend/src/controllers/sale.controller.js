@@ -8,7 +8,7 @@ const getSales = async (_request, response) => {
 
 const getSalesById = async (request, response) => {
     const { id } = request.params;
-    const result = await salesServices.listSales(id);
+    const [result] = await salesServices.listSales(id);
    
     const { error, message } = result;
  
