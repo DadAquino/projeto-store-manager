@@ -21,9 +21,9 @@ describe('Testes da camada model de Sales', function () {
 
         const id = 2;
 
-        const result = await salesModel.getSaleById(id);
+        const result = await salesModel.getSaleProductById(id);
 
-        expect(result).to.be.deep.equal([salesProductsMock[2]]);
+        expect(result).to.be.deep.equal(salesProductsMock[2]);
     });
 
     it('Realizando um cadastro de venda', async function () {
@@ -32,5 +32,15 @@ describe('Testes da camada model de Sales', function () {
         const result = await salesModel.insertNewSale(newSaleMock);
 
         expect(result).to.be.deep.equal(2);
+    });
+
+    it('Deletando uma venda', async function () {
+        sinon.stub(connection, 'execute').resolves([{ affectedRows: 1, changedRows: 1 }]);
+
+        const id = 1;
+        
+        const result = await salesModel.deleteSale(id);
+
+        expect(result).to.be.equal(1);
     });
 });

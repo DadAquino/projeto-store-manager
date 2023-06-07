@@ -40,4 +40,13 @@ describe('Testes da camada model de Products', function () {
 
         expect(result).to.be.deep.equal(1);
     });
+
+    it('Deletando um produto', async function () {
+        sinon.stub(connection, 'execute').resolves([{ affectedRows: 1, changedRows: 1 }]);
+
+        const id = 1;
+        const result = await productsModel.deleteProduct(id);
+
+        expect(result).to.be.equal(1);
+    });
 });
