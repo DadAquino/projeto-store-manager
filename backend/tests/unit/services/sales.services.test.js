@@ -31,7 +31,7 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
         const id = 5;
         const errorResult = { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
 
-        sinon.stub(salesModel, 'getSaleProductById').resolves(undefined);
+        sinon.stub(salesModel, 'getSaleProductById').resolves([]);
 
         const result = await salesServices.listSales(id);
 

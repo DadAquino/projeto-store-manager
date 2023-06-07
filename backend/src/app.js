@@ -20,7 +20,7 @@ app.get('/products/:id', productsController.getProductsByid);
  app.post('/products', productsController.addNewProduct);
 
  app.get('/test', async (_request, response) => {
-const result = await salesModel.getSaleProductById(1);
+const result = await salesModel.getSaleProductById(77);
 
   console.log(result.length);
 
