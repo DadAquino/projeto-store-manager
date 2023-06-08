@@ -27,5 +27,4 @@ const insertNewSale = async (request, response) => {
 
      return response.status(201).json(result);
    }; 
-
 module.exports = { getSales, getSalesById, insertNewSale };

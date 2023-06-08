@@ -21,5 +21,6 @@ app.get('/products/:id', productsController.getProductsById);
  app.post('/sales', salesController.insertNewSale);
 
  app.put('/products/:id', nameValidation, productsController.updateProduct);
+ app.delete('/products/:id', productsController.deletes);
 
 module.exports = app;

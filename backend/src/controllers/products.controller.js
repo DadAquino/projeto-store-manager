@@ -24,7 +24,7 @@ const getProductsById = async (request, response) => {
 
   const result = await productsServices.addProduct(body);
  
-   response.status(201).json(result);
+   return response.status(201).json(result);
  };
 
  const updateProduct = async (request, response) => {
@@ -40,7 +40,21 @@ const getProductsById = async (request, response) => {
 
   const res = { id, name }; 
  
-   response.status(201).json(res);
+   return response.status(201).json(res);
  };
 
-module.exports = { getProducts, getProductsById, addNewProduct, updateProduct };
+ const deletes = async (request, response) => {
+    const { id } = request.params;
+
+    const result = await productsServices.deleteProduct(id);
+
+    const { error, message } = result;
+
+    if (error) { 
+      return response.status(404).json({ message });
+    }
+
+    return response.status(204).end();
+ };
+
+module.exports = { getProducts, getProductsById, addNewProduct, updateProduct, deletes };
