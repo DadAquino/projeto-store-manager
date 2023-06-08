@@ -20,6 +20,9 @@ const getSalesById = async (request, response) => {
 
 const insertNewSale = async (request, response) => {
     const { body } = request;
+
+    console.log('body', body);
+
     const result = await salesServices.newSale(body);
 
      return response.status(201).json(result);

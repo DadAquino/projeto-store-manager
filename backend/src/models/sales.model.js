@@ -33,6 +33,7 @@ const getSaleProductById = async (id) => {
 };
 
 const newSaleId = async () => {
+  /*
   const [[result]] = await connection.execute(
     'SELECT MAX(id) AS id FROM sales',
   );
@@ -47,11 +48,17 @@ const newSaleId = async () => {
     );
 
   return newId;
+  */
+
+  const [{ insertId }] = await connection.execute('INSERT INTO sales () VALUE ()');
+
+  return insertId;
 };
 
 const newSale = async (newId, sale) => {
+  console.log('parametros', newId, sale);
   await connection.execute(
-    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?);',
+    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
     [newId, sale.productId, sale.quantity],
   );
 

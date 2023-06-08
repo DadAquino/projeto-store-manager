@@ -20,6 +20,6 @@ app.get('/products/:id', productsController.getProductsById);
  app.post('/products', nameValidation, productsController.addNewProduct);
  app.post('/sales', salesController.insertNewSale);
 
- app.post('/products/:id', nameValidation, productsController.updateProduct);
+ app.put('/products/:id', nameValidation, productsController.updateProduct);
 
 module.exports = app;
