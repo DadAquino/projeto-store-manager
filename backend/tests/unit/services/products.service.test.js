@@ -49,4 +49,29 @@ describe('Testes das regras de negócio de produtos da camada services', functio
 
         expect(result).to.be.deep.equal(res);
     });
+
+    it('Testa a atualização do produto', async function () {
+        const id = 5;
+        const name = 'productX';
+        const name2 = 'productY';
+
+        sinon.stub(productsModel, 'updateProduct').resolves(1);
+        sinon.stub(productsModel, 'getProductsById').resolves({ id, name });
+
+        const result = await productsServices.update(id, name2);
+
+        expect(result).to.be.deep.equal(1);
+    });
+
+    it('Testa a atualização do produt, caso produto não exista', async function () {
+        const id = 5;
+        const name = 'productX';
+        const error = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
+        sinon.stub(productsModel, 'getProductsById').resolves(undefined);
+
+        const result = await productsServices.update(id, name);
+
+        expect(result).to.be.deep.equal(error);
+    });
 });

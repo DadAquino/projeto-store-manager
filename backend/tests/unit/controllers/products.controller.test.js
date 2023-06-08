@@ -74,19 +74,34 @@ describe('Testes da camada Controller de Products', function () {
         expect(res.json).to.have.been.calledWith(productResolves);
     });
 
-    /*
-    it('Testa validações para adicionar produtos', async function () {
-       // const errorMessage = { message: '"name" is required' };
+    it('Testa a atualização de um produto', async function () {
+        sinon.stub(productsServices, 'update').resolves(1);
 
-        const req = { body: {} };
+        const req = { body: { name: 'productY' }, params: { id: 5 } };
+        const res = {};
+        const response = { id: req.params.id, name: req.body.name };
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await productsController.updateProduct(req, res);
+
+        expect(res.status).to.be.calledWith(201);
+        expect(res.json).to.be.calledWith(response);
+    });
+    it('Testa a atualização de um produto, caso o id não exista', async function () {
+        const error = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+        sinon.stub(productsServices, 'update').resolves(error);
+
+        const req = { body: { name: 'productY' }, params: { id: 99 } };
         const res = {};
 
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
-        await productsController.addNewProduct(req, res);
+        await productsController.updateProduct(req, res);
 
-        expect(hasName).to.have.been.called();
+        expect(res.status).to.be.calledWith(404);
+        expect(res.json).to.be.calledWith({ message: error.message });
     });
-    */
 });

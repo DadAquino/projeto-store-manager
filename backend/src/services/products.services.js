@@ -25,7 +25,7 @@ const addProduct = async (body) => {
 const update = async (id, name) => {
     const product = await productsModel.getProductsById(id);
 
-    if (product.lenght === 0) {
+    if (!product) {
         return { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
      }
 
