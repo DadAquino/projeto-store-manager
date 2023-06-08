@@ -79,14 +79,14 @@ describe('Testes da camada Controller de Products', function () {
 
         const req = { body: { name: 'productY' }, params: { id: 5 } };
         const res = {};
-        const response = { id: req.params.id, name: req.body.name };
+        const response = { id: parseInt(req.params.id, 10), name: req.body.name };
 
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
 
         await productsController.updateProduct(req, res);
 
-        expect(res.status).to.be.calledWith(201);
+        expect(res.status).to.be.calledWith(200);
         expect(res.json).to.be.calledWith(response);
     });
     it('Testa a atualização de um produto, caso o id não exista', async function () {

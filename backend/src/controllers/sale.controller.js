@@ -39,6 +39,6 @@ const deletes = async (request, response) => {
     return response.status(404).json({ message });
   }
 
-  response.status(204).end();
+  return response.status(204).end();
 };
 module.exports = { getSales, getSalesById, insertNewSale, deletes };

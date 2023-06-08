@@ -38,9 +38,9 @@ const getProductsById = async (request, response) => {
     return response.status(404).json({ message });
   }
 
-  const res = { id, name }; 
+  const res = { id: parseInt(id, 10), name }; 
  
-   return response.status(201).json(res);
+   return response.status(200).json(res);
  };
 
  const deletes = async (request, response) => {
