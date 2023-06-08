@@ -1,7 +1,6 @@
 const express = require('express');
 // const { getAllProducts, deleteProducts, updateProduct } = require('./models/product.model');
 const { salesController, productsController } = require('./controllers');
-const { salesModel, productsModel } = require('./models');
 const { nameValidation } = require('./middlewares/validations');
 
 const app = express();
@@ -22,13 +21,5 @@ app.get('/products/:id', productsController.getProductsById);
  app.post('/sales', salesController.insertNewSale);
 
  app.post('/products/:id', nameValidation, productsController.updateProduct);
-
- app.get('/test', async (_request, response) => {
-const result = await productsModel.getProductsById(77);
-
-  console.log(result);
-
-  response.status(200).json(result);
-});
 
 module.exports = app;
