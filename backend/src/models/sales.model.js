@@ -57,10 +57,12 @@ const newSaleId = async () => {
 
 const newSale = async (newId, sale) => {
   console.log('parametros', newId, sale);
-  await connection.execute(
+  const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
     [newId, sale.productId, sale.quantity],
   );
+
+  return insertId;
 };
 
 /*

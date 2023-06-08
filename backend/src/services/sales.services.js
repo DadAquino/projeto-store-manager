@@ -24,5 +24,18 @@ const newSale = async (body) => {
 
     return { id: newId, itemsSold: body };
 };
+
+const deleteSale = async (id) => {
+    const result = salesModel.getSaleProductById(id);
+    const l = 0;
+
+    if (result.length === l) {
+        return { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
+    }
+
+    await salesModel.deleteSale(id);
+
+    return true;
+};
     
-module.exports = { listSales, newSale };
+module.exports = { listSales, newSale, deleteSale };

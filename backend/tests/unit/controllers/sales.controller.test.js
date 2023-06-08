@@ -69,4 +69,37 @@ describe('Testes da camada Controller de Sales', function () {
         expect(res.status).to.have.been.calledWith(201);
         expect(res.json).to.have.been.calledWith(newSaleResponse);
     });
+
+    it('deletando um produto', async function () {
+        sinon.stub(salesServices, 'deleteSale').resolves(true);
+        const req = { params: { id: 5 } };
+        const res = {};
+        const end = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns(end);
+        res.end = sinon.stub().returns();
+
+        await salesController.deletes(req, res);
+
+        expect(res.status).to.have.been.calledWith(204);
+    });
+
+    it('deletando um produto, caso produto não exista', async function () {
+        const error = { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+        sinon.stub(salesServices, 'deleteSale').resolves(error);
+        const req = { params: { id: 5 } };
+        const res = {};
+        const end = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns(end);
+        res.end = sinon.stub().returns();
+
+        await salesController.deletes(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith({ message: error.message });
+    });
 });

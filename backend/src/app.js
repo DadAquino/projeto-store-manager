@@ -2,6 +2,7 @@ const express = require('express');
 // const { getAllProducts, deleteProducts, updateProduct } = require('./models/product.model');
 const { salesController, productsController } = require('./controllers');
 const { nameValidation } = require('./middlewares/validations');
+const { salesModel } = require('./models');
 
 const app = express();
 app.use(express.json());
@@ -22,5 +23,15 @@ app.get('/products/:id', productsController.getProductsById);
 
  app.put('/products/:id', nameValidation, productsController.updateProduct);
  app.delete('/products/:id', productsController.deletes);
+
+ app.get('/test/:id', async (req, res) => {
+  const { id } = req.params;
+  
+  const result = await salesModel.getSaleProductById(id);
+
+  console.log(typeof result, result.length);
+
+  res.status(200).json(result);
+ });
 
 module.exports = app;

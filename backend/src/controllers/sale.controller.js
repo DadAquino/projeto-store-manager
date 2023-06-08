@@ -27,4 +27,18 @@ const insertNewSale = async (request, response) => {
 
      return response.status(201).json(result);
    }; 
-module.exports = { getSales, getSalesById, insertNewSale };
+
+const deletes = async (request, response) => {
+  const { id } = request.params;
+
+  const result = await salesServices.deleteSale(id);
+
+  const { error, message } = result;
+
+  if (error) {
+    return response.status(404).json({ message });
+  }
+
+  response.status(204).end();
+};
+module.exports = { getSales, getSalesById, insertNewSale, deletes };

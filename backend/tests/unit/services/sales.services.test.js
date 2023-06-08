@@ -37,4 +37,27 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
 
         expect(result).to.be.deep.equal(errorResult);
     });
+
+    it('Testa deletar um produto', async function () {
+        const id = 5;
+
+        sinon.stub(salesModel, 'getSaleProductById').resolves([{ id: 5 }]);
+        sinon.stub(salesModel, 'deleteSale').resolves(1);
+
+        const result = await salesServices.deleteSale(id);
+
+        expect(result).to.be.deep.equal(true);
+    });
+
+    it('Testa deletar um produto, caso produto não exista', async function () {
+        const id = 5;
+        const resolves = [];
+        const errorResult = { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+        sinon.stub(salesModel, 'getSaleProductById').resolves(resolves);
+
+        const result = await salesServices.deleteSale(id);
+
+        expect(result).to.be.deep.equal(errorResult);
+    });
 });
