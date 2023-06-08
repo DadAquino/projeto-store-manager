@@ -104,4 +104,36 @@ describe('Testes da camada Controller de Products', function () {
         expect(res.status).to.be.calledWith(404);
         expect(res.json).to.be.calledWith({ message: error.message });
     });
+
+    it('Testa deletetar um produto', async function () {
+        sinon.stub(productsServices, 'deleteProduct').resolves(true);
+
+        const req = { params: { id: 5 } };
+        const res = {};
+        const end = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns(end);
+        res.end = sinon.stub().returns();
+
+        await productsController.deletes(req, res);
+
+        expect(res.status).to.be.calledWith(204);
+    });
+
+    it('Testa deletetar um produto, caso não exista', async function () {
+        const resolves = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+        sinon.stub(productsServices, 'deleteProduct').resolves(resolves);
+
+        const req = { params: { id: 5 } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await productsController.deletes(req, res);
+
+        expect(res.status).to.be.calledWith(404);
+        expect(res.json).to.be.calledWith({ message: resolves.message });
+    });
 });

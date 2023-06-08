@@ -74,4 +74,26 @@ describe('Testes das regras de negócio de produtos da camada services', functio
 
         expect(result).to.be.deep.equal(error);
     });
+
+    it('Testa deletar um produto', async function () {
+       sinon.stub(productsModel, 'getProductsById').resolves({ id: 5, name: 'produtX' });
+       sinon.stub(productsModel, 'deleteProduct').resolves(1);
+
+       const id = 1;
+
+       const result = await productsServices.deleteProduct(id);
+
+       expect(result).to.be.equal(true);
+    });
+
+    it('Testa deletar um produto, caso produto não exista', async function () {
+        sinon.stub(productsModel, 'getProductsById').resolves(undefined);
+ 
+        const id = 1;
+        const error = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+ 
+        const result = await productsServices.deleteProduct(id);
+ 
+        expect(result).to.be.deep.equal(error);
+     });
 });

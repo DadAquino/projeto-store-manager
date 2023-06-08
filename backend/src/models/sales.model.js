@@ -58,17 +58,9 @@ const newSaleId = async () => {
 const newSale = async (newId, sale) => {
   console.log('parametros', newId, sale);
   await connection.execute(
-    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
+    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
     [newId, sale.productId, sale.quantity],
   );
-
-  const [result] = await connection.execute(
-    `SELECT product_id AS productId, quantity
-    FROM sales_products WHERE sale_id = ?`,
-    [newId],
-  );
-
-  return result;
 };
 
 /*

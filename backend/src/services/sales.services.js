@@ -20,9 +20,9 @@ const newSale = async (body) => {
     const newId = await salesModel.newSaleId();
 
     const response = await body.map((sale) => salesModel.newSale(newId, sale));
-    const [result] = await Promise.all(response);
+    await Promise.all(response);
 
-    return { id: newId, itemsSold: result };
+    return { id: newId, itemsSold: body };
 };
     
 module.exports = { listSales, newSale };
