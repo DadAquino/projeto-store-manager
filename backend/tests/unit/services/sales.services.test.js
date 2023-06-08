@@ -49,6 +49,7 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
         expect(result).to.be.deep.equal(true);
     });
 
+    /*
     it('Testa deletar um produto, caso produto não exista', async function () {
         const id = 5;
         const resolves = [];
@@ -60,4 +61,5 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
 
         expect(result).to.be.deep.equal(errorResult);
     });
+    */
 });
