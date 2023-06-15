@@ -1,4 +1,4 @@
-const { salesServices } = require('../services/index');
+const { salesServices, productsServices } = require('../services/index');
 
 const getSales = async (_request, response) => {
     const result = await salesServices.listSales();
@@ -21,10 +21,18 @@ const getSalesById = async (request, response) => {
 const insertNewSale = async (request, response) => {
     const { body } = request;
 
-    console.log('body', body);
+    body.forEach(async (e) => {
+      const result = await productsServices.listProducts(e.productId);
 
+    const { error, message } = result;
+
+    if (error) {
+      return response.status(404).json({ message });
+    }
+    });
+    
     const result = await salesServices.newSale(body);
-
+    
      return response.status(201).json(result);
    }; 
 

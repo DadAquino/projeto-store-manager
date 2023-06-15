@@ -8,6 +8,7 @@ const getAllProducts = async () => {
 };
 
 const getProductsById = async (id) => {
+    console.log(id, typeof id);
     const [[result]] = await 
     connection.execute('SELECT * FROM  StoreManager.products WHERE id = ?;', [id]);
     
