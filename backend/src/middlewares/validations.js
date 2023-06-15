@@ -30,7 +30,7 @@ const newSaleValidation = (req, res, next) => {
     }
 
     if (quantity === undefined) {
-        return res.status(422).json(quantityMessage); 
+        return res.status(400).json(quantityMessage); 
     }
 
     if (quantity <= 0) {
