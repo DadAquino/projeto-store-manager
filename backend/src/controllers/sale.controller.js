@@ -1,5 +1,4 @@
-const { productExistsValidation } = require('../middlewares/validations');
-const { salesServices } = require('../services/index');
+const { salesServices, productsServices } = require('../services/index');
 
 const getSales = async (_request, response) => {
     const result = await salesServices.listSales();
@@ -21,8 +20,18 @@ const getSalesById = async (request, response) => {
 
 const insertNewSale = async (request, response) => {
     const { body } = request;
-    
-    const test = await productExistsValidation(body);
+
+    let test;
+
+    await Promise.all(body.map(async (e) => {
+    const result = await productsServices.listProducts(e.productId);
+
+    const { error, message } = result;
+
+    if (error) {
+      test = message;
+    }
+}));
 
     if (test) {
       return response.status(404).json({ message: test });

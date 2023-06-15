@@ -8,7 +8,7 @@ chai.use(sinonChai);
 
 const { salesController } = require('../../../src/controllers');
 const { salesProductsMock, newSaleResponse } = require('../models/mocks/model.mocks');
-const { salesServices } = require('../../../src/services');
+const { salesServices, productsServices } = require('../../../src/services');
 
 describe('Testes da camada Controller de Sales', function () {
     afterEach(sinon.restore);
@@ -58,6 +58,7 @@ describe('Testes da camada Controller de Sales', function () {
     });
     it('Cadastro de um novo produto', async function () {
         sinon.stub(salesServices, 'newSale').resolves(newSaleResponse);
+        sinon.stub(productsServices, 'listProducts').resolves({ oi: 'oi' });
         const req = { body: newSaleResponse.itemsSold };
         const res = {};
 
