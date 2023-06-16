@@ -1,7 +1,7 @@
 const express = require('express');
 const { salesController, productsController } = require('./controllers');
 const { nameValidation, newSaleValidation } = require('./middlewares/validations');
-const { productsServices } = require('./services');
+const { salesModel } = require('./models');
 
 const app = express();
 app.use(express.json());
@@ -26,7 +26,7 @@ app.get('/products/:id', productsController.getProductsById);
  app.delete('/sales/:id', salesController.deletes);
 
  app.get('/test', async (_request, response) => {
-const result = await productsServices.update(1, 'joãoPedro');
+const result = await salesModel.getSaleById(2);
 
   response.json(result);
 });

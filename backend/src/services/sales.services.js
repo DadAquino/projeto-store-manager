@@ -27,9 +27,8 @@ const newSale = async (body) => {
 
 const deleteSale = async (id) => {
     const result = await salesModel.getSaleProductById(id);
-    const l = 0;
 
-    if (result.length === l) {
+    if (result.length === 0) {
         return { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
     }
 
