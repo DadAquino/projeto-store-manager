@@ -71,6 +71,24 @@ describe('Testes da camada Controller de Sales', function () {
         expect(res.json).to.have.been.calledWith(newSaleResponse);
     });
 
+    it('Cadastro de um novo produto, caso produto não exista', async function () {
+        const error = { error: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
+        sinon.stub(salesServices, 'newSale').resolves(newSaleResponse);
+        sinon.stub(productsServices, 'listProducts').resolves(error);
+
+        const req = { body: newSaleResponse.itemsSold };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await salesController.insertNewSale(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith({ message: error.message });
+    });
+
     it('deletando um produto', async function () {
         sinon.stub(salesServices, 'deleteSale').resolves(true);
         const req = { params: { id: 5 } };

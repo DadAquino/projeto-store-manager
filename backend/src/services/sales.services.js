@@ -26,7 +26,7 @@ const newSale = async (body) => {
 };
 
 const deleteSale = async (id) => {
-    const result = salesModel.getSaleProductById(id);
+    const result = await salesModel.getSaleProductById(id);
     const l = 0;
 
     if (result.length === l) {

@@ -22,6 +22,8 @@ app.get('/products/:id', productsController.getProductsById);
 
  app.put('/products/:id', nameValidation, productsController.updateProduct);
  app.delete('/products/:id', productsController.deletes);
+ 
+ app.delete('/sales/:id', salesController.deletes);
 
  app.get('/test', async (_request, response) => {
 const result = await productsServices.update(1, 'joãoPedro');

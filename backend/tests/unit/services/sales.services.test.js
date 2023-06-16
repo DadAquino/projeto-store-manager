@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
-const { salesProductsMock } = require('../models/mocks/model.mocks');
+const { salesProductsMock, newSaleMock } = require('../models/mocks/model.mocks');
 const { salesServices } = require('../../../src/services');
 
 describe('Testes das regras de negócio de Vendas da camada services', function () {
@@ -49,8 +49,7 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
         expect(result).to.be.deep.equal(true);
     });
 
-    /*
-    it('Testa deletar um produto, caso produto não exista', async function () {
+    it('Testa deletar uma venda, caso a venda não exista', async function () {
         const id = 5;
         const resolves = [];
         const errorResult = { error: 'SALE_NOT_FOUND', message: 'Sale not found' };
@@ -61,5 +60,15 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
 
         expect(result).to.be.deep.equal(errorResult);
     });
-    */
+
+    it('Testa adicionar uma nova venda', async function () {
+        const id = 5;
+
+        sinon.stub(salesModel, 'newSaleId').resolves(id);
+        sinon.stub(salesModel, 'newSale').resolves(id);
+
+        const result = await salesServices.newSale(newSaleMock);
+
+        expect(result).to.be.deep.equal({ id, itemsSold: newSaleMock });
+    });
 });

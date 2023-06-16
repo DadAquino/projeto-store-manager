@@ -1,5 +1,3 @@
-const { productsServices } = require('../services/index');
-
 const nameValidation = (req, res, next) => {
     const { name } = req.body;
     const message = { message: '"name" is required' };
@@ -40,20 +38,4 @@ const newSaleValidation = (req, res, next) => {
     next(); 
 };
 
-const productExistsValidation = async (body) => {
-    let test;
-
-    await Promise.all(body.map(async (e) => {
-    const result = await productsServices.listProducts(e.productId);
-
-    const { error, message } = result;
-
-    if (error) {
-      test = message;
-    }
-}));
-
-    return test;
-};
-
-module.exports = { nameValidation, newSaleValidation, productExistsValidation };
+module.exports = { nameValidation, newSaleValidation };
