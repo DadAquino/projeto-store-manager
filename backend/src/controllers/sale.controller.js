@@ -55,4 +55,24 @@ const deletes = async (request, response) => {
 
   return response.status(204).end();
 };
-module.exports = { getSales, getSalesById, insertNewSale, deletes };
+
+const updateQuantity = async (req, res) => {
+  const { params: { productId, saleId }, body: { quantity } } = req;
+
+  const searchProduct = await productsServices.listProducts(productId);
+  const searchSale = await salesServices.listSales(saleId);
+
+  if (searchProduct.error) {
+    return res.status(404).json({ message: 'Product not found in sale' });
+  }
+
+  if (searchSale.error) {
+    return res.status(404).json({ message: 'Sale not found' });
+  }
+
+  const result = await salesServices.updateQuantity(productId, saleId, quantity);
+
+  return res.status(200).json(result);
+};
+
+module.exports = { getSales, getSalesById, insertNewSale, deletes, updateQuantity };

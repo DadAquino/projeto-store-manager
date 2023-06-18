@@ -1,6 +1,10 @@
 const express = require('express');
 const { salesController, productsController } = require('./controllers');
-const { nameValidation, newSaleValidation } = require('./middlewares/validations');
+const { 
+  nameValidation,
+  newSaleValidation,
+  updateSaleQuantityValidation,
+} = require('./middlewares/validations');
 const { salesModel } = require('./models');
 
 const app = express();
@@ -24,6 +28,12 @@ app.get('/products/:id', productsController.getProductsById);
  app.delete('/products/:id', productsController.deletes);
  
  app.delete('/sales/:id', salesController.deletes);
+
+ app.put(
+'/sales/:saleId/products/:productId/quantity', 
+ updateSaleQuantityValidation,
+salesController.updateQuantity,
+);
 
  app.get('/test', async (_request, response) => {
 const result = await salesModel.getSaleById(2);
