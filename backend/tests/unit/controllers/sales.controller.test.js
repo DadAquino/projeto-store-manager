@@ -7,7 +7,10 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 const { salesController } = require('../../../src/controllers');
-const { salesProductsMock, newSaleResponse } = require('../models/mocks/model.mocks');
+const { salesProductsMock,
+    newSaleResponse,
+    salesMock,
+    productsMock } = require('../models/mocks/model.mocks');
 const { salesServices, productsServices } = require('../../../src/services');
 
 describe('Testes da camada Controller de Sales', function () {
@@ -120,5 +123,76 @@ describe('Testes da camada Controller de Sales', function () {
 
         expect(res.status).to.have.been.calledWith(404);
         expect(res.json).to.have.been.calledWith({ message: error.message });
+    });
+
+    it('Testando a atualização da quantidade do produto na venda', async function () {
+        const productId = 1;
+        const saleId = 1;
+        const quantity = 1;
+        const date = '2023-05-06T03:14:28.000Z';
+        const saleServiceReturn = { productId, quantity, date, saleId };
+
+        sinon.stub(salesServices, 'updateQuantity').resolves(saleServiceReturn);
+        sinon.stub(salesServices, 'listSales').resolves(salesMock[0]);
+        sinon.stub(productsServices, 'listProducts').resolves(productsMock[0]);
+
+        const req = { params: { productId, saleId }, body: { quantity } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await salesController.updateQuantity(req, res);
+
+        expect(res.status).to.have.been.calledWith(200);
+        expect(res.json).to.have.been.calledWith(saleServiceReturn);
+    });
+
+    it('Testando a atualização, caso o produto não exista', async function () {
+        const productId = 1;
+        const saleId = 1;
+        const quantity = 1;
+        const date = '2023-05-06T03:14:28.000Z';
+        const saleServiceReturn = { productId, quantity, date, saleId };
+        const error = { error: 'PRODUCT_NOT_FOUND' };
+
+        sinon.stub(salesServices, 'updateQuantity').resolves(saleServiceReturn);
+        sinon.stub(salesServices, 'listSales').resolves(salesMock[0]);
+        sinon.stub(productsServices, 'listProducts').resolves(error);
+
+        const req = { params: { productId, saleId }, body: { quantity } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await salesController.updateQuantity(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith({ message: 'Product not found in sale' });
+    });
+
+    it('Testando a atualização, caso a venda não exista', async function () {
+        const productId = 1;
+        const saleId = 1;
+        const quantity = 1;
+        const date = '2023-05-06T03:14:28.000Z';
+        const saleServiceReturn = { productId, quantity, date, saleId };
+        const error = { error: 'SALE_NOT_FOUND' };
+
+        sinon.stub(salesServices, 'updateQuantity').resolves(saleServiceReturn);
+        sinon.stub(salesServices, 'listSales').resolves(error);
+        sinon.stub(productsServices, 'listProducts').resolves(productsMock[0]);
+
+        const req = { params: { productId, saleId }, body: { quantity } };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await salesController.updateQuantity(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
     });
 });

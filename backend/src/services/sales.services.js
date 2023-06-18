@@ -42,7 +42,7 @@ const updateQuantity = async (productId, saleId, quantity) => {
 
     const [sale] = await salesModel.getSaleProductById(saleId);
 
-    return { ...sale, saleId };
+    return { ...sale, saleId: Number(saleId) };
     };
     
 module.exports = { listSales, newSale, deleteSale, updateQuantity };

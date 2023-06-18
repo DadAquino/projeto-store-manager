@@ -28,7 +28,7 @@ const insertNewSale = async (request, response) => {
 
     const { error, message } = result;
 
-    if (error) {
+    if (error !== undefined) {
       test = message;
     }
 }));

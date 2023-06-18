@@ -55,4 +55,16 @@ describe('Testes da camada model de Sales', function () {
 
         expect(result).to.be.equal(1);
     });
+
+    it('Teste de atualização de quantidade da venda', async function () {
+        sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+        const productId = 1;
+        const saleId = 1;
+        const quantity = 1;
+        
+        const result = await salesModel.updateQuantity(productId, saleId, quantity);
+
+        expect(result).to.be.equal(1);
+    });
 });

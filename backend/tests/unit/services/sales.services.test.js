@@ -71,4 +71,20 @@ describe('Testes das regras de negócio de Vendas da camada services', function 
 
         expect(result).to.be.deep.equal({ id, itemsSold: newSaleMock });
     });
+
+    it('Testa atualizar a quantidade de uma venda', async function () {
+        const productId = 1;
+        const saleId = 1;
+        const quantity = 1;
+        const date = '2023-05-06T03:14:28.000Z';
+        const saleModelResponse = [{ productId, quantity, date }];
+        const expectReturn = { productId, quantity, date, saleId };
+
+        sinon.stub(salesModel, 'updateQuantity').resolves(1);
+        sinon.stub(salesModel, 'getSaleProductById').resolves(saleModelResponse);
+
+        const result = await salesServices.updateQuantity(productId, saleId, quantity);
+
+        expect(result).to.be.deep.equal(expectReturn);
+    });
 });
